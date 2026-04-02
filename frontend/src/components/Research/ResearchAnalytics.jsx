@@ -20,16 +20,8 @@ const ResearchAnalytics = () => {
   const [toYear, setToYear] = useState('');
   const [quartile, setQuartile] = useState('');
   const [indexing, setIndexing] = useState('');
-  const [conferenceScope, setConferenceScope] = useState('');
   const [source, setSource] = useState('');
-  const [publisher, setPublisher] = useState('');
   const [author, setAuthor] = useState('');
-  const [affiliation, setAffiliation] = useState('');
-  const [addedByRole, setAddedByRole] = useState('');
-  const [addedBy, setAddedBy] = useState('');
-  const [hasDoi, setHasDoi] = useState('');
-  const [hasAbstract, setHasAbstract] = useState('');
-  const [hasKeywords, setHasKeywords] = useState('');
   const [selectedTypes, setSelectedTypes] = useState({
     journals: true,
     conferences: true,
@@ -56,21 +48,14 @@ const ResearchAnalytics = () => {
         if (toYear) params.set('toYear', toYear);
         if (quartile) params.set('quartile', quartile);
         if (indexing) params.set('indexing', indexing);
-        if (conferenceScope) params.set('conferenceScope', conferenceScope);
         if (source.trim()) params.set('source', source.trim());
-        if (publisher.trim()) params.set('publisher', publisher.trim());
         if (author.trim()) params.set('author', author.trim());
-        if (affiliation.trim()) params.set('affiliation', affiliation.trim());
-        if (addedByRole) params.set('addedByRole', addedByRole);
-        if (addedBy) params.set('addedBy', addedBy);
-        if (hasDoi) params.set('hasDoi', hasDoi);
-        if (hasAbstract) params.set('hasAbstract', hasAbstract);
-        if (hasKeywords) params.set('hasKeywords', hasKeywords);
+        if (author.trim()) params.set('author', author.trim());
         if (selectedTypeValues.length > 0 && selectedTypeValues.length < TYPE_OPTIONS.length) {
           params.set('types', selectedTypeValues.join(','));
         }
 
-        const res = await fetch(`http://localhost:5000/api/research/analytics?${params.toString()}`, { headers });
+        const res = await fetch(`http://localhost:5005/api/research/analytics?${params.toString()}`, { headers });
         const payload = await res.json();
         if (!res.ok) throw new Error(payload.message || 'Failed to load analytics');
         setData(payload);
@@ -81,7 +66,7 @@ const ResearchAnalytics = () => {
       }
     };
     fetchData();
-  }, [mineOnly, fromYear, toYear, quartile, indexing, conferenceScope, source, publisher, author, affiliation, addedByRole, addedBy, hasDoi, hasAbstract, hasKeywords, selectedTypeValues]);
+  }, [mineOnly, fromYear, toYear, quartile, indexing, source, author, selectedTypeValues]);
 
   if (loading) return <div style={{ padding: '3rem', textAlign: 'center' }}>Loading Institutional Analytics...</div>;
   if (error) return <div style={{ padding: '3rem', textAlign: 'center', color: '#b91c1c' }}>{error}</div>;
@@ -106,16 +91,8 @@ const ResearchAnalytics = () => {
     setToYear('');
     setMineOnly(false);
     setIndexing('');
-    setConferenceScope('');
     setSource('');
-    setPublisher('');
     setAuthor('');
-    setAffiliation('');
-    setAddedByRole('');
-    setAddedBy('');
-    setHasDoi('');
-    setHasAbstract('');
-    setHasKeywords('');
     setSelectedTypes({ journals: true, conferences: true, articles: true, inproceedings: true });
   };
 
@@ -141,15 +118,11 @@ const ResearchAnalytics = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '0.8rem', alignItems: 'center' }}>
           <select value={quartile} onChange={(e) => setQuartile(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
             <option value="">All Quartiles</option>
-            {(filterOptions.quartiles || ['Q1', 'Q2', 'Q3', 'Q4', 'NA']).map((q) => <option key={q} value={q}>{q}</option>)}
+            {['Q1', 'Q2', 'Q3', 'Q4', 'NA'].map((q) => <option key={q} value={q}>{q}</option>)}
           </select>
           <select value={indexing} onChange={(e) => setIndexing(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
             <option value="">All Indexing</option>
             {(filterOptions.indexing || ['Scopus', 'Web of Science', 'None']).map((idx) => <option key={idx} value={idx}>{idx}</option>)}
-          </select>
-          <select value={conferenceScope} onChange={(e) => setConferenceScope(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">All Conference Scope</option>
-            {(filterOptions.conferenceScopes || ['International', 'National', 'Normal']).map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <select value={fromYear} onChange={(e) => setFromYear(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
             <option value="">From Year</option>
@@ -160,32 +133,7 @@ const ResearchAnalytics = () => {
             {years.map((y) => <option key={`to-${y}`} value={y}>{y}</option>)}
           </select>
           <input value={source} list="source-options" onChange={(e) => setSource(e.target.value)} placeholder="Source / Journal / Conference" style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
-          <input value={publisher} list="publisher-options" onChange={(e) => setPublisher(e.target.value)} placeholder="Publisher" style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
           <input value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="Author name" style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
-          <input value={affiliation} onChange={(e) => setAffiliation(e.target.value)} placeholder="Affiliation" style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }} />
-          <select value={addedByRole} onChange={(e) => setAddedByRole(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">All Roles</option>
-            {(filterOptions.roles || ['HOD', 'Professor', 'Scholar', 'Student']).map((role) => <option key={role} value={role}>{role}</option>)}
-          </select>
-          <select value={addedBy} onChange={(e) => setAddedBy(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">All Contributors</option>
-            {(filterOptions.contributors || []).map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </select>
-          <select value={hasDoi} onChange={(e) => setHasDoi(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">DOI: Any</option>
-            <option value="true">With DOI</option>
-            <option value="false">Without DOI</option>
-          </select>
-          <select value={hasAbstract} onChange={(e) => setHasAbstract(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">Abstract: Any</option>
-            <option value="true">With Abstract</option>
-            <option value="false">Without Abstract</option>
-          </select>
-          <select value={hasKeywords} onChange={(e) => setHasKeywords(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
-            <option value="">Keywords: Any</option>
-            <option value="true">With Keywords</option>
-            <option value="false">Without Keywords</option>
-          </select>
           <label style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', fontWeight: '700', fontSize: '0.85rem' }}>
             <input type="checkbox" checked={mineOnly} onChange={(e) => setMineOnly(e.target.checked)} />
             My uploads only
@@ -194,9 +142,6 @@ const ResearchAnalytics = () => {
             Clear All
           </button>
         </div>
-        <datalist id="publisher-options">
-          {(filterOptions.publishers || []).map((p) => <option key={p} value={p} />)}
-        </datalist>
         <datalist id="source-options">
           {(topSources || []).map((s) => <option key={s.name} value={s.name} />)}
         </datalist>

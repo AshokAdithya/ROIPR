@@ -1,12 +1,12 @@
 async function testBackend() {
     try {
         console.log('Testing Public Stats...');
-        let res = await fetch('http://localhost:5000/api/public/stats');
+        let res = await fetch('http://localhost:5005/api/public/stats');
         let data = await res.json();
         console.log('Stats Response:', data);
 
         console.log('Testing HOD Login...');
-        res = await fetch('http://localhost:5000/api/auth/login', {
+        res = await fetch('http://localhost:5005/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: 'hod', password: 'password123' })
@@ -17,7 +17,7 @@ async function testBackend() {
         const token = data.token;
 
         console.log('Testing Projects Fetch (HOD)...');
-        res = await fetch('http://localhost:5000/api/projects', {
+        res = await fetch('http://localhost:5005/api/projects', {
             headers: { Authorization: `Bearer ${token}` }
         });
         data = await res.json();

@@ -41,7 +41,7 @@ npm install
 # Boot the Express Server & trigger automated SQLite database seeding
 node server.js
 ```
-> *Expected Result*: The backend actively listens on `http://localhost:5000` and creates the `research.db` file, immediately injecting several mock administrative accounts and research metrics.
+> *Expected Result*: The backend actively listens on `http://localhost:5005` and creates the `research.db` file, immediately injecting several mock administrative accounts and research metrics.
 
 ### Step 2: Initialize the Client Frontend
 Launch a second terminal at the root path and mount into the frontend directory.

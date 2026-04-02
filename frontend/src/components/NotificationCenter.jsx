@@ -6,7 +6,7 @@ const NotificationCenter = ({ isOpen, onClose, onNavigate }) => {
 
     useEffect(() => {
         if (isOpen) {
-            fetch('http://localhost:5000/api/notifications', {
+            fetch('http://localhost:5005/api/notifications', {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
             })
                 .then(res => res.json())
@@ -20,7 +20,7 @@ const NotificationCenter = ({ isOpen, onClose, onNavigate }) => {
             onNavigate(notif.link);
             onClose();
             // Mark as read in a fully developed app
-            fetch('http://localhost:5000/api/notifications/mark-read', {
+            fetch('http://localhost:5005/api/notifications/mark-read', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
             });

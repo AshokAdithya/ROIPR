@@ -51,7 +51,7 @@ const IPRListModule = ({ type, title, icon }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/projects', {
+    fetch('http://localhost:5005/api/projects', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
     })
       .then(res => res.json())
@@ -118,7 +118,7 @@ const PatentModuleList = () => {
   const [filter, setFilter] = useState('All'); // All, Filed, Published, Granted
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/projects', {
+    fetch('http://localhost:5005/api/projects', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
     })
       .then(res => res.json())
@@ -327,7 +327,7 @@ const SubmitResearchForm = ({ onSubmitted, editingProject = null, onCancelEdit =
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/mentors', {
+    fetch('http://localhost:5005/api/mentors', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
     })
       .then(res => res.json())
@@ -349,8 +349,8 @@ const SubmitResearchForm = ({ onSubmitted, editingProject = null, onCancelEdit =
     e.preventDefault();
     setLoading(true);
     const url = editingProject
-      ? `http://localhost:5000/api/projects/${editingProject.id}`
-      : 'http://localhost:5000/api/projects/submit';
+      ? `http://localhost:5005/api/projects/${editingProject.id}`
+      : 'http://localhost:5005/api/projects/submit';
 
     const method = editingProject ? 'PUT' : 'POST';
 
@@ -524,7 +524,7 @@ const ApprovalQueue = ({ role }) => {
   };
 
   const fetchQueue = () => {
-    fetch('http://localhost:5000/api/projects', {
+    fetch('http://localhost:5005/api/projects', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
     })
       .then(res => res.json())
@@ -544,8 +544,8 @@ const ApprovalQueue = ({ role }) => {
 
   const handleAction = async (id, actionType, comments = '', approvedToHod = true) => {
     const url = actionType === 'review'
-      ? `http://localhost:5000/api/projects/${id}/review`
-      : `http://localhost:5000/api/projects/${id}/approve`;
+      ? `http://localhost:5005/api/projects/${id}/review`
+      : `http://localhost:5005/api/projects/${id}/approve`;
 
     try {
       const res = await fetch(url, {
@@ -696,7 +696,7 @@ function App() {
   const [myProjects, setMyProjects] = useState([]);
 
   const fetchMyProjects = () => {
-    fetch('http://localhost:5000/api/projects', {
+    fetch('http://localhost:5005/api/projects', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
     })
       .then(res => res.json())

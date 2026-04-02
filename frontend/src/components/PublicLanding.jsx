@@ -8,7 +8,7 @@ const PublicLanding = ({ onLoginClick }) => {
     const [stats, setStats] = useState({ patents: 185, trademarks: 90, copyrights: 42, designs: 18 });
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/public/stats')
+        fetch('http://localhost:5005/api/public/stats')
             .then(res => res.json())
             .then(data => {
                 if (data) setStats({ patents: 185, trademarks: 90, copyrights: 42, designs: 18 }); // Mocking IPR stats overriding the generic ones

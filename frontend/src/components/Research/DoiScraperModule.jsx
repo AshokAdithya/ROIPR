@@ -16,7 +16,7 @@ const DoiScraperModule = () => {
     setResult(null);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/doi/extract?url=${encodeURIComponent(doiInput)}`, {
+      const res = await fetch(`http://localhost:5005/api/doi/extract?url=${encodeURIComponent(doiInput)}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('ssn_token')}` }
       });
       if (!res.ok) throw new Error('Failed to resolve DOI or URL on Crossref/OpenAlex databases.');

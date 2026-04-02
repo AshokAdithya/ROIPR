@@ -122,7 +122,7 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
       if (mineOnly) params.set('mineOnly', 'true');
       params.set('limit', '200');
 
-      const url = `http://localhost:5000${endpoint}?${params.toString()}`;
+      const url = `http://localhost:5005${endpoint}?${params.toString()}`;
       const res = await fetch(url, { headers: { Authorization: `Bearer ${localStorage.getItem('ssn_token')}` } });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Failed to load records.');
@@ -177,7 +177,7 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
         }
       });
 
-      const url = editing ? `http://localhost:5000${endpoint}/${editing.id}` : `http://localhost:5000${endpoint}`;
+      const url = editing ? `http://localhost:5005${endpoint}/${editing.id}` : `http://localhost:5005${endpoint}`;
       const method = editing ? 'PUT' : 'POST';
       const res = await fetch(url, {
         method,
@@ -288,7 +288,7 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
     setMessage('');
     setMessageType('error');
     try {
-      const res = await fetch(`http://localhost:5000/api/doi/extract?url=${encodeURIComponent(formData.doi.trim())}`, {
+      const res = await fetch(`http://localhost:5005/api/doi/extract?url=${encodeURIComponent(formData.doi.trim())}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('ssn_token')}` }
       });
       const data = await res.json();
@@ -311,7 +311,7 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
     setMessage('');
     setMessageType('error');
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}/${id}`, {
+      const res = await fetch(`http://localhost:5005${endpoint}/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${localStorage.getItem('ssn_token')}` }
       });
@@ -353,7 +353,7 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
           </div>
           <select value={quartile} onChange={(e) => setQuartile(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
             <option value="">All Quartiles</option>
-            {(meta.filters.quartiles || ['Q1', 'Q2', 'Q3', 'Q4', 'NA']).map((q) => <option key={q} value={q}>{q}</option>)}
+            {['Q1', 'Q2', 'Q3', 'Q4', 'NA'].map((q) => <option key={q} value={q}>{q}</option>)}
           </select>
           <select value={indexing} onChange={(e) => setIndexing(e.target.value)} style={{ padding: '0.55rem', borderRadius: '8px', border: '1px solid #cbd5e1' }}>
             <option value="">All Indexing</option>

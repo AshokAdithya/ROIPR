@@ -2,7 +2,7 @@ async function testPhase3() {
     try {
         console.log('--- Testing Registration Validation ---');
         // 1. Test invalid email
-        let res = await fetch('http://localhost:5000/api/auth/register', {
+        let res = await fetch('http://localhost:5005/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: 'test@gmail.com', username: 'bad_email', password: '123', role: 'Student', name: 'Bad Email' })
@@ -11,7 +11,7 @@ async function testPhase3() {
         console.log('Non-SSN Email Attempt:', res.status, data.message);
 
         // 2. Test valid email
-        res = await fetch('http://localhost:5000/api/auth/register', {
+        res = await fetch('http://localhost:5005/api/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: 'tester@ssn.edu.in', username: 'tester', password: 'password123', role: 'Student', name: 'Phase3 Tester' })
@@ -21,7 +21,7 @@ async function testPhase3() {
         const vToken = data.token;
 
         // 3. Test verification
-        res = await fetch('http://localhost:5000/api/auth/verify', {
+        res = await fetch('http://localhost:5005/api/auth/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token: vToken })
@@ -32,7 +32,7 @@ async function testPhase3() {
         console.log('\n--- Testing Research Workflow ---');
 
         // 4. Login as Student
-        res = await fetch('http://localhost:5000/api/auth/login', {
+        res = await fetch('http://localhost:5005/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: 'tester', password: 'password123' })
@@ -42,14 +42,14 @@ async function testPhase3() {
         console.log('Student Login:', res.status);
 
         // Get Professors for mentoring
-        res = await fetch('http://localhost:5000/api/mentors', {
+        res = await fetch('http://localhost:5005/api/mentors', {
             headers: { Authorization: `Bearer ${sToken}` }
         });
         const mentors = await res.json();
         const pId = mentors.find(m => m.email === 'professor@ssn.edu.in')?.id;
 
         // 5. Submit Research
-        res = await fetch('http://localhost:5000/api/projects/submit', {
+        res = await fetch('http://localhost:5005/api/projects/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${sToken}` },
             body: JSON.stringify({
@@ -64,7 +64,7 @@ async function testPhase3() {
         const projectId = project.id;
 
         // 6. Login as Professor
-        res = await fetch('http://localhost:5000/api/auth/login', {
+        res = await fetch('http://localhost:5005/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: 'professor', password: 'password123' })
@@ -74,7 +74,7 @@ async function testPhase3() {
         console.log('Professor Login:', res.status);
 
         // 7. Move to HOD Stage
-        res = await fetch(`http://localhost:5000/api/projects/${projectId}/review`, {
+        res = await fetch(`http://localhost:5005/api/projects/${projectId}/review`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${pToken}` },
             body: JSON.stringify({ professor_comments: 'Ready for HOD', approved_to_hod: true })
@@ -83,7 +83,7 @@ async function testPhase3() {
         console.log('Professor Review Action:', res.status, data.message);
 
         // 8. Login as HOD
-        res = await fetch('http://localhost:5000/api/auth/login', {
+        res = await fetch('http://localhost:5005/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: 'hod', password: 'password123' })
@@ -93,7 +93,7 @@ async function testPhase3() {
         console.log('HOD Login:', res.status);
 
         // 9. Final Approval
-        res = await fetch(`http://localhost:5000/api/projects/${projectId}/approve`, {
+        res = await fetch(`http://localhost:5005/api/projects/${projectId}/approve`, {
             method: 'POST',
             headers: { Authorization: `Bearer ${hToken}` }
         });
