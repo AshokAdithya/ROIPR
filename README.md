@@ -1,8 +1,8 @@
-# Unified Research Output and IPR Management Portal
+#  Research Output and IPR Management System
 
 ## Overview
 
-The **Unified Research Output and IPR Management Portal** is a comprehensive, enterprise-grade platform designed exclusively to handle the rigorous academic mapping and Intellectual Property generation workflows of modern universities and research institutions.
+The **Unified Research Output and IPR Management System** is a comprehensive, enterprise-grade platform designed exclusively to handle the rigorous academic mapping and Intellectual Property generation workflows of modern universities and research institutions.
 
 By unifying two distinct administrative domains—**Research Output Management System (ROMS)** and **Intellectual Property Rights (IPR)** tracking—into a centralized, role-based architecture, this platform eliminates manual reporting redundancies, bridges informational silos, and actively measures institutional innovation metrics in real-time.
 
@@ -12,11 +12,12 @@ By unifying two distinct administrative domains—**Research Output Management S
 *   **Dual-Domain Layout**: A meticulously organized glassmorphic interface that visually segments operations into a *Research Hub* for publishing insights and an *IPR Command Center* for patent strategy.
 *   **Automated Specification Generation**: The platform eliminates the repetitive administration of Word and PDF patent formatting by relying on `docx` and `jspdf` to auto-compile institutional invention disclosures immediately in the browser.
 *   **Hierarchical Review Matrix (RBAC)**: A secure, multi-tier funnel controlling information flow. Students submit theoretical drafts; Mentors review, iterate, and endorse; Institutional Heads of Department (HODs) give final patent filing clearance using a 3-point IP evaluation algorithm.
-*   **Dynamic Analytics**: High-level statistical visualization plotting institutional patent generation, journal clustering, and publication density. 
+*   **Refined Advanced Analytics**: Institutional-grade filtering system customized for NAAC standards, allowing precise tracking by Quartile (Q1-Q4), Indexing (Scopus/WoS), and Research Category without UI clutter.
+*   **Dynamic Insight Visualization**: High-level statistical charts plotting publication trends, contributor rankings, and journal quality metrics in real-time.
 
 ---
 
-## 🛠️ Technology Stack & Core Architecture
+##  Technology Stack & Core Architecture
 
 The infrastructure employs a decoupled full-stack implementation to strictly separate rendering performance from background database orchestration.
 
@@ -26,7 +27,7 @@ The infrastructure employs a decoupled full-stack implementation to strictly sep
 
 ---
 
-## ⚙️ Initial Deployment Walkthrough
+##  Initial Deployment Walkthrough
 
 To execute the system on a local development tier, two parallel terminal environments are necessary to boot the client and the API gateway simultaneously. 
 
@@ -58,22 +59,5 @@ npm run dev
 
 ---
 
-## 🔐 Administrative Simulation Parameters
 
-The initial database seed generates pre-configured roles. You may authenticate the platform utilizing any of the subsequent credentials to simulate specific workflows:
 
-| Internal Role | Hierarchy | Username | Password |
-| :--- | :--- | :--- | :--- |
-| **HOD** | Tier 3 (Full Administrative Clearances) | `hod` | `password123` |
-| **Professor** | Tier 2 (Review, Mentor & Self-Assign) | `professor` | `password123` |
-| **Scholar** | Tier 1 (Submission Isolation) | `scholar` | `password123` |
-| **Student** | Tier 1 (Submission Isolation) | `student` | `password123` |
-
----
-
-## Authors & Maintainers
-
-Architected and developed as a premiere academic administration tool. 
-
-* **Maintainer**: Angelin Priyadarshini
-* **Repository**: [https://github.com/Angelin-Priyadarshini/Research-output-and-IPR-management](https://github.com/Angelin-Priyadarshini/Research-output-and-IPR-management)
