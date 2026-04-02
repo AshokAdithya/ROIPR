@@ -340,9 +340,10 @@ const ResearchListModule = ({ title, icon, endpoint, moduleKey, user }) => {
             <p style={{ color: '#666' }}>{meta.pagination.total || items.length} outputs available.</p>
           </div>
         </div>
-        <button className="ssn-button ssn-button-primary" onClick={() => setShowForm(true)}>
+        {(user.role !== 'Student' && user.role !== 'Scholar') && <button className="ssn-button ssn-button-primary" onClick={() => setShowForm(true)}>
           <Plus size={18} /> Add {title.split(' ')[0]}
-        </button>
+        </button>}
+
       </div>
 
       <div className="ssn-card" style={{ marginBottom: '1.5rem' }}>

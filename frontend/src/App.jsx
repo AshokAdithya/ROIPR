@@ -239,7 +239,7 @@ const DashboardLayout = ({ children, activeModule, setActiveModule, user, onLogo
       <div style={{ display: 'flex', flex: 1 }}>
         {/* Sidebar Dual-Domain Layout */}
         <aside style={{ width: '300px', background: 'white', padding: '2rem 1rem', height: 'calc(100vh - 72px)', position: 'sticky', top: '72px', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
-          
+
           <SidebarSection title="Research Hub">
             <SidebarItem icon={<LayoutDashboard />} label="Research Analytics" active={activeModule === 'research_dashboard'} onClick={() => setActiveModule('research_dashboard')} />
             <SidebarItem icon={<ScanSearch />} label="DOI Scraper Tool" active={activeModule === 'doi_scraper'} onClick={() => setActiveModule('doi_scraper')} />
@@ -857,7 +857,7 @@ function App() {
         {activeModule === 'conferences' && <ResearchListModule moduleKey="conferences" user={user} endpoint="/api/conferences" title="Conference Proceedings" icon={<Users size={32} />} />}
         {activeModule === 'articles' && <ResearchListModule moduleKey="articles" user={user} endpoint="/api/articles" title="Research Articles" icon={<Newspaper size={32} />} />}
         {activeModule === 'inproceedings' && <ResearchListModule moduleKey="inproceedings" user={user} endpoint="/api/inproceedings" title="In-proceedings" icon={<FolderTree size={32} />} />}
-        
+
         {activeModule === 'strategic' && user.role === 'HOD' && <StrategicDashboard />}
         {activeModule === 'patents' && <PatentModuleList />}
         {activeModule === 'trademarks' && <IPRListModule type="Trademark" title="Trademarks" icon={<Award size={32} />} />}
@@ -866,7 +866,7 @@ function App() {
       </DashboardLayout>
 
       {/* Floating Action Button - Quick File IPR */}
-      {activeModule !== 'submit' && (
+      {activeModule !== 'submit' && (user.role !== 'Student' && user.role !== 'Scholar') && (
         <button
           className="fab-btn"
           onClick={handleFloatingAction}
